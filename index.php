@@ -7,7 +7,7 @@ $senha = '123';
 $senha_crip = md5($senha);
 
 if($linhas == 0){
-   $pdo->query("INSERT INTO usuarios SET nome = '$nome_sistema', email = '$email_sistema', senha = '$senha', senha_crip ='$senha_crip', nivel ='Administrador',ativo = 'Sim',foto ='sem-foto.jpg'");
+   $pdo->query("INSERT INTO usuarios SET nome = '$nome_sistema', email = '$email_sistema', senha = '$senha', senha_crip ='$senha_crip', nivel ='Administrador',ativo = 'Sim',foto ='sem-foto.jpg', telefone ='$telefone_sistema'");
 
 }
 

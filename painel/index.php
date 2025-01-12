@@ -1,4 +1,5 @@
 <?php 
+@session_start();
 require_once("../conexao.php");
 require_once("verificar.php");
 
@@ -9,13 +10,29 @@ if(@$_GET['pagina'] != ""){
 	$pagina = 'home';
 }
 
+$id_usuario = @$_SESSION['id'];
+$query = $pdo->query("SELECT * from usuarios where id='$id_usuario'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$linhas = @count($res);
+
+if($linhas > 0){
+	$nome_usuario = $res[0] ['nome'];
+	$email_usuario = $res[0] ['email'];
+	$telefone_usuario = $res[0] ['telefone'];
+	$senha_usuario = $res[0] ['senha'];
+	$nivel_usuario = $res[0] ['nivel'];
+	$foto_usuario = $res[0] ['foto'];
+	$endereco_usuario = $res[0] ['endereco'];
+
+
+}
 
 
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Nome Sistema</title>
+	<title>Sistema Condomínio</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="shortcut icon" href="" type="image/x-icon">
@@ -100,6 +117,9 @@ if(@$_GET['pagina'] != ""){
 	</script>
 	<!-- //pie-chart --><!-- index page sales reviews visitors pie chart -->
 
+	<link  rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css"/>
+
+	<script src="https://cdn.datatables.net/2.2.1/js/dataTables.min.js"></script>
 	
 </head> 
 <body class="cbp-spmenu-push">
@@ -215,10 +235,10 @@ if(@$_GET['pagina'] != ""){
 						<li class="dropdown profile_details_drop">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								<div class="profile_img">	
-									<span class="prfil-img"><img src="images/perfil/sem-foto.jpg" alt="" width="50px" height="50px"> </span> 
+									<span class="prfil-img"><img src="images/perfil/<? echo $foto_usuario ?>" alt="" width="50px" height="50px"> </span> 
 									<div class="user-name esc">
-										<p>Nome Usuário</p>
-										<span>Nível Usuário</span>
+										<p><?php echo $nome_usuario ?></p>
+										<span><?php echo $nivel_usuario ?></span>
 									</div>
 									<i class="fa fa-angle-down lnr"></i>
 									<i class="fa fa-angle-up lnr"></i>
@@ -346,32 +366,33 @@ if(@$_GET['pagina'] != ""){
 						</div>
 					</div>
 
-
 					<div class="row">
-						<div class="col-md-6">							
+						<div class="col-md-4">							
 								<label>Telefone</label>
 								<input type="text" class="form-control" id="telefone_perfil" name="telefone" placeholder="Seu Telefone" value="<?php echo $telefone_usuario ?>" required>							
 						</div>
 
-						<div class="col-md-6">							
-								<label>CPF</label>
-								<input type="text" class="form-control" id="cpf_perfil" name="cpf" placeholder="Seu CPF" value="<?php echo $cpf_usuario ?>">							
-						</div>
-					</div>
-
-
-
-					<div class="row">
-						<div class="col-md-6">							
+						<div class="col-md-4">							
 								<label>Senha</label>
 								<input type="password" class="form-control" id="senha_perfil" name="senha" placeholder="Senha" value="<?php echo $senha_usuario ?>" required>							
 						</div>
 
-						<div class="col-md-6">							
+						<div class="col-md-4">							
 								<label>Confirmar Senha</label>
 								<input type="password" class="form-control" id="conf_senha_perfil" name="conf_senha" placeholder="Confirmar Senha" value="" required>							
 						</div>
+						
+			
 					</div>
+
+					<div class="row>
+				       <div class="col-md-12">
+					   <label>Endereço</label>
+					   <input type="text" class="form-control" id="endereco_perfil" name="endereco" placeholder="Endereco" value="<?php echo $endereco_usuario ?>" >
+                       
+	                   </div>
+	               </div>
+
 
 
 					<div class="row">
